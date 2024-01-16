@@ -28,6 +28,13 @@ const ChartBox = styled.div`
   }
 `;
 
+const NoActivity = styled.p`
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+`;
+
 const startDataLight = [
   {
     duration: "1 night",
@@ -148,6 +155,8 @@ export default function DurationChart({ confirmedStays }) {
   return (
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
+      {console.log(confirmedStays)}
+      {!confirmedStays.length && <NoActivity>No information...</NoActivity>}
 
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
@@ -169,15 +178,19 @@ export default function DurationChart({ confirmedStays }) {
               />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
-            layout="vertical"
-            iconSize={15}
-            iconType="circle"
-          />
+          {confirmedStays.length && (
+            <>
+              <Tooltip />
+              <Legend
+                verticalAlign="middle"
+                align="right"
+                width="30%"
+                layout="vertical"
+                iconSize={15}
+                iconType="circle"
+              />
+            </>
+          )}
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
